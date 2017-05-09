@@ -1,4 +1,4 @@
-@extends('template')
+@extends('index')
 
 @section('body')
 <div class="container">
@@ -24,4 +24,5 @@
         </div>
     </div>
 </div>
+
 @endsection

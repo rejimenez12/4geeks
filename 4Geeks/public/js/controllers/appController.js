@@ -1,5 +1,29 @@
-angular.module('App.Controller', ['ui.bootstrap']);
-app.controller('Controller',function($scope, services){
+angular.module('App.appController', ['ui.bootstrap']);
+app.controller('appController',function($scope, services){
+
+    $scope.email    = "";
+    $scope.password = "";
+    $scope.remember = "";
+
+    $scope.response = "";
+
+
+
+    $scope.login = function(email,password,remember) {
+
+        services.login(email,password,remember).then(function(request){
+
+            if ( request.data == 'true' ){
+
+                window.location="/register";
+            }
+
+            $scope.response = request.data;
+
+        });
+
+    };
+
 
     /*$scope.servicio_id = "";
     $scope.cita_descripcion = "";

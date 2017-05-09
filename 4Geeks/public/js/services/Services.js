@@ -2,15 +2,16 @@ angular.module('App.Services', [])
 
 .service('services', function ($http, $q){ //declaramos la factory
 
-   /*var path_modelo = "/admin/modelo-api";
+   var path_login = "/login";
 
     
-    this.modelo = function(marca, modelo){
+    this.login = function(email, password,remember){
 		var defered = $q.defer();
         var formData = new FormData();
-		formData.append("marca", marca.id ? marca.id : marca);
-		formData.append("modelo", modelo);
-		return $http.post(path_modelo,formData,{
+		formData.append("email", email);
+		formData.append("password", password);
+		formData.append("remember", remember);
+		return $http.post(path_login,formData,{
 					headers: {
 						"Content-type": undefined
 					},
@@ -25,7 +26,7 @@ angular.module('App.Services', [])
 
 		return defered.promise;
 
-	}*/
+	}
 
 
 });

@@ -1,7 +1,6 @@
 var app = angular.module('App', ['App.appController',
 	'App.Services',
 	'App.Directives',
-	'App.Controller',
 	'ui.bootstrap',
 	'xeditable',
 	'ngAnimate',
