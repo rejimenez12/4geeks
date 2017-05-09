@@ -25,6 +25,12 @@ Route::post('/login', [
  
 ]);
 
+Route::get('/logout',[
+
+	'as'   => 'getLogout',
+	'uses' => 'HomeController@getLogout'
+]);
+
 Route::get('/register', [
 
 	'as'   => 'getRegister',
@@ -39,3 +45,10 @@ Route::post('/register', [
 
 ]);
 
+
+Route::get('/home',[
+
+	'as'   => 'home',
+	'uses' => 'HomeController@home'
+
+]);

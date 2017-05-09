@@ -1,9 +1,11 @@
 angular.module('App.appController', ['ui.bootstrap']);
 app.controller('appController',function($scope, services){
 
+    $scope.name     = ""
     $scope.email    = "";
     $scope.password = "";
     $scope.remember = "";
+    $scope.password_confirmation = "";
 
     $scope.response = "";
 
@@ -11,16 +13,38 @@ app.controller('appController',function($scope, services){
 
     $scope.login = function(email,password,remember) {
 
-        services.login(email,password,remember).then(function(request){
+        services.login( email,password,remember ).then(function(request){
 
             if ( request.data == 'true' ){
+
+                window.location="/home";
+            }
+
+
+        });
+
+    };
+
+    $scope.register = function(name,email,password,password_confirmation) {
+
+        services.register( name,email,password,password_confirmation ).then(function(request){
+
+            if ( request.data == 'true' ){
+
+                window.location="/";
+
+            }else if( request.data == 'false'){
+
+                window.location="/register";
+
+            }else{
 
                 window.location="/register";
             }
 
-            $scope.response = request.data;
 
         });
+
 
     };
 
