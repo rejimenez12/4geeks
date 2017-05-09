@@ -20,7 +20,7 @@ class CreateCategoryTable extends Migration
             *   Comando: php artisan migrate - Uso: Debes ubicarte en la carpeta del proyecto y ejecutarlo.
             **/
             $table->Increments('id');
-            $table->string('name',45);
+            $table->string('category',45);
             $table->timestamps();
 
 

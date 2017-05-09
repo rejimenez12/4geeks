@@ -1,15 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
-|
-*/
 
 Route::get('/', [
 
@@ -46,9 +36,74 @@ Route::post('/register', [
 ]);
 
 
-Route::get('/home',[
+Route::group(['prefix' => 'normal', 'middleware' => ['auth']], function(){
 
-	'as'   => 'home',
-	'uses' => 'HomeController@home'
+	Route::get('/home',[
 
-]);
+		'as'   => 'normalHome',
+		'uses' => 'HomeController@home'
+
+	]);
+
+	Route::get('/index/category',[
+
+		'as'   => 'indexCategory',
+		'uses' => 'NormalController@indexCategory'
+
+	]);
+
+	Route::get('/list/category',[
+
+		'as'   => 'listCategory',
+		'uses' => 'NormalController@listCategory'
+
+	]);
+
+	Route::post('/create/category',[
+
+		'as'   => 'createCategory',
+		'uses' => 'NormalController@createCategory'
+
+	]);
+    
+    Route::get('/edit/category/{id}',[
+        
+        'as'   => 'normalEditCategory',
+        'uses' => 'NormalController@editCategory'
+        
+    ]);
+    
+    Route::get('/delete/category/{id}',[
+        
+        'as'   => 'normalDeleteCategory',
+        'uses' => 'NormalController@destroyCategory'
+        
+    ]);
+    
+    Route::post('/update/category',[
+
+		'as'   => 'updateCategory',
+		'uses' => 'NormalController@updateCategory'
+
+	]);
+    
+    
+    Route::get('/index/note',[
+        
+        'as'   => 'indexNote',
+        'uses' => 'NormalController@indexNote'
+        
+    ]);
+    
+    Route::get('/list/note',[
+        
+        'as'   => 'listNote',
+        'uses' => 'NormalController@listNote'
+        
+    ]);
+
+
+
+});
+
+
