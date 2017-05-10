@@ -58,6 +58,13 @@ Route::group(['prefix' => 'normal', 'middleware' => ['auth']], function(){
 		'uses' => 'NormalController@listCategory'
 
 	]);
+    
+    Route::get('/view/category',[
+        
+        'as'   => 'viewCategory',
+        'uses' => 'NormalController@viewCategory'
+        
+    ]);
 
 	Route::post('/create/category',[
 
@@ -87,6 +94,29 @@ Route::group(['prefix' => 'normal', 'middleware' => ['auth']], function(){
 
 	]);
     
+    Route::post('filter/category',[
+        
+        'as'   => 'filterCategory',
+		'uses' => 'NormalController@filterCategory'
+        
+    ]);
+    
+    Route::post('order/category',[
+        
+        'as'   => 'orderCategory',
+		'uses' => 'NormalController@orderCategory'
+        
+    ]);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     Route::get('/index/note',[
         
@@ -101,8 +131,57 @@ Route::group(['prefix' => 'normal', 'middleware' => ['auth']], function(){
         'uses' => 'NormalController@listNote'
         
     ]);
+    
+    Route::get('/view/note',[
+        
+        'as'   => 'viewNote',
+        'uses' => 'NormalController@viewNote'
+        
+    ]);
+    
+    
+    Route::post('/create/note',[
 
+		'as'   => 'createNote',
+		'uses' => 'NormalController@createNote'
 
+	]);
+    
+    Route::get('/edit/note/{id}',[
+        
+        'as'   => 'normalEditNote',
+        'uses' => 'NormalController@editNote'
+        
+    ]);
+    
+    Route::get('/delete/note/{id}',[
+        
+        'as'   => 'normalDeleteNote',
+        'uses' => 'NormalController@destroyNote'
+        
+    ]);
+    
+    Route::post('/update/note',[
+
+		'as'   => 'updateNote',
+		'uses' => 'NormalController@updateNote'
+
+	]);
+
+    
+    Route::post('filter/note',[
+        
+        'as'   => 'filterNote',
+		'uses' => 'NormalController@filterNote'
+        
+    ]);
+    
+    Route::post('order/note',[
+        
+        'as'   => 'orderCategory',
+		'uses' => 'NormalController@orderNote'
+        
+    ]);
 
 });
 

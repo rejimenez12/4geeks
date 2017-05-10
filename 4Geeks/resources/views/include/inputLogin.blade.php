@@ -47,7 +47,3 @@
     </div>
 </div>
 
-/%email%/
-/%password%/
-/%remember%/
-/%response%/

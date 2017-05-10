@@ -216,7 +216,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item  ">
-                                            <a href="{{ route('listCategory') }}" class="nav-link ">
+                                            <a href="{{ route('viewCategory') }}"  class="nav-link ">
                                                 <i class="icon-user"></i>
                                                 <span class="title">Listar Categorías</span>
                                             </a>
@@ -241,7 +241,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item  ">
-                                            <a href="{{ route('listNote') }}" class="nav-link ">
+                                            <a href="{{ route('viewNote') }}" class="nav-link ">
                                                 <i class="icon-user"></i>
                                                 <span class="title">Listar Notas</span>
                                             </a>

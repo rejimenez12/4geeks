@@ -22,7 +22,7 @@ class CreateNoteTable extends Migration
             $table->Increments('id');
             $table->string('title',45);
             $table->longText('description');
-            $table->string('mark',1);
+            $table->string('mark',1)->nullable();
             $table->integer('category_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
