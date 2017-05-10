@@ -2,9 +2,14 @@
 
 @section('body')
 
-<div ng-show="response" class=" col-md-12 alert alert-success">
+<div ng-show="success" class=" col-md-12 alert alert-success">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
     <strong>Success!</strong> Categoria creada con exito.
+</div>
+
+<div ng-show="response" class=" col-md-12 alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <strong>Error!</strong> /%error%/.
 </div>
 
 

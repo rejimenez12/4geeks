@@ -24,6 +24,7 @@
                 <th>Fecha de creación</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -32,12 +33,19 @@
                     <td>/% note.description %/</td>
                     <td>/% note.category%/</td>
                     <td>/% note.created_at %/</td>
+                    
                     <td><a href="/normal/edit/note//%note.id%/" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Editar
                         </a>
                     </td>
                     <td>
                         <a ng-click="deleteNote(note.id)" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Eliminar
                         </a>
+                    </td>
+                    <td ng-if="note.mark == 0">
+                        <input ng-click="marcarNote(mark1,note.id)" ng-model='mark1' type="button" class="btn btn-primary" name="name" value="/%espera%/">
+                    </td>
+                    <td ng-if="note.mark == 1">
+                        <input ng-click="marcarNote(mark2,note.id)" ng-model='mark2' type="button" class="btn btn-primary" name="name" value=/%listo%/>
                     </td>
                     
                 </tr>

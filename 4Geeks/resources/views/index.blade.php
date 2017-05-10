@@ -98,37 +98,7 @@
                                         <img alt="" class="img-circle" src="{{ asset('layouts/layout/img/avatar3_small.jpg') }}" />
                                         <span class="username username-hide-on-mobile"> {{ Auth::user()->name }} </span>
                                     </a>
-                                    <!--<ul class="dropdown-menu dropdown-menu-default">
-                                        <li>
-                                            <a href="page_user_profile_1.html">
-                                                <i class="icon-user"></i> My Profile </a>
-                                        </li>
-                                        <li>
-                                            <a href="app_calendar.html">
-                                                <i class="icon-calendar"></i> My Calendar </a>
-                                        </li>
-                                        <li>
-                                            <a href="app_inbox.html">
-                                                <i class="icon-envelope-open"></i> My Inbox
-                                                <span class="badge badge-danger"> 3 </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="app_todo.html">
-                                                <i class="icon-rocket"></i> My Tasks
-                                                <span class="badge badge-success"> 7 </span>
-                                            </a>
-                                        </li>
-                                        <li class="divider"> </li>
-                                        <li>
-                                            <a href="page_user_lock_1.html">
-                                                <i class="icon-lock"></i> Lock Screen </a>
-                                        </li>
-                                        <li>
-                                            <a href="page_user_login_1.html">
-                                                <i class="icon-key"></i> Log Out </a>
-                                        </li>
-                                    </ul>-->
+                                   
                                 </li>
                                 <!-- END USER LOGIN DROPDOWN -->
 
@@ -194,6 +164,15 @@
                                     <a href="javascript:;" class="nav-link nav-toggle">
                                         <i class="icon-user"></i>
                                         <span class="title">Categorías</span>
+                                    </a>
+                                 
+
+                                </li>
+                            
+                                <li class="nav-item  ">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <i class="icon-user"></i>
+                                        <span class="title">Notas</span>
                                     </a>
                                  
 
@@ -276,10 +255,17 @@
                         <!-- BEGIN PAGE BAR -->
                         <div class="page-bar">
                             <ul class="page-breadcrumb">
-                                <li>
-                                    <a href="index.html">Home</a>
-                                    <i class="fa fa-circle"></i>
-                                </li>
+                                @if (Auth::guest())
+                                    <li>
+                                        <a href="/">Home</a>
+                                        <i class="fa fa-circle"></i>
+                                    </li>
+                                @elseif( Auth::user()->typeUser->type == "normal" )
+                                    <li>
+                                        <a href="{{ route('normalHome') }}">Home</a>
+                                        <i class="fa fa-circle"></i>
+                                    </li>
+                                @endif
                                 <li>
                                     <span>Dashboard</span>
                                 </li>
@@ -294,7 +280,7 @@
                         </div>
                         <!-- END PAGE BAR -->
                         <!-- BEGIN PAGE TITLE-->
-                        <h1 class="page-title"> Admin Dashboard
+                        <h1 class="page-title"> Notes Manager
                             <small>statistics, charts, recent events and reports</small>
                         </h1>
                         <!-- END PAGE TITLE-->
@@ -310,9 +296,8 @@
             <!-- END CONTAINER -->
             <!-- BEGIN FOOTER -->
             <div class="page-footer">
-                <div class="page-footer-inner"> 2016 &copy; Metronic Theme By
-                    <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
-                    <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                <div class="page-footer-inner"> 2017 &copy; 4Geeks Test
+                    
                 </div>
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>

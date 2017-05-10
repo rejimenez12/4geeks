@@ -5,15 +5,56 @@ app.controller('appController',function($scope, services){
     $scope.name     = ""
     $scope.email    = "";
     $scope.password = "";
-    $scope.remember = "";
+    $scope.remember = false;
     $scope.password_confirmation = "";
     $scope.categories = {};
     $scope.notes = {};
     $scope.category;
+    $scope.error = "";
+    $scope.success = "";
 
     $scope.response = "";
     
     $scope.option;
+    
+    $scope.listo = 'Listo';
+    $scope.espera = 'En espera';
+    $scope.mark1 = 1;
+    $scope.mark2 = 0;
+    
+    
+    
+    
+    $scope.marcarNote = function( option, id ){
+        
+        
+        services.marcarNote( option, id ).then(function(request){
+        
+            if ( request.data == 0 ){
+                console.log("entre1");
+                $scope.mark1 = 1;
+                $scope.mark2 = 1;
+                $scope.listo = 'En espera';
+                $scope.espera = 'En espera';
+                
+                
+            }else if ( request.data == 1 ){
+                
+                console.log("entre2");
+                
+                $scope.mark1 = 0;
+                $scope.mark2 = 0;
+                $scope.listo = 'Listo';
+                $scope.espera = 'Listo';
+                
+                
+            }
+                
+        });
+    }
+    
+    
+    
     
     $scope.orderNote = function( ){
             
@@ -139,9 +180,10 @@ app.controller('appController',function($scope, services){
     }
     
     $scope.deleteCategory = function( id ){
-
+         
             services.deleteCategory( id ).then(function(request){
                 
+                console.log($scope.categories);
                 $scope.categories = request.data;
 
             });
@@ -173,8 +215,20 @@ app.controller('appController',function($scope, services){
             objectForm.formSubmitted = false;
             
             services.updateCategoria( objectForm ).then(function(request){
-
-                $scope.response = request.data;
+                
+                if( request.data == 'true' ){
+                    
+                    $scope.success = true;
+                    
+                }else if( request.data == 'false' ){
+                    
+                    $scope.response = true;
+                    $scope.error = "Problemas al modificar la categoria";
+                    
+                }else if( request.data == 'error' ){
+                    $scope.response = true;
+                    $scope.error = "Esta categoria ya existe, intenta con otra";
+                }
 
             });
             
@@ -192,14 +246,27 @@ app.controller('appController',function($scope, services){
     
     $scope.createCategory = function( objectForm ){
 
-        
-        
         if (objectForm.$valid){
             objectForm.formSubmitted = false;
             
             services.crearCategoria( objectForm.category.$viewValue ).then(function(request){
-
-                $scope.response = request.data;
+                
+                console.log(request.data);
+                if( request.data == 'true' ){
+                    
+                    $scope.success = true;
+                    
+                }else if( request.data == 'false' ){
+                    
+                    $scope.response = true;
+                    $scope.error = "Problemas al crear la categoria";
+                    
+                }else if( request.data == 'error' ){
+                    $scope.response = true;
+                    $scope.error = "Esta categoria ya existe, intenta con otra";
+                }
+                
+                
 
             });
             
@@ -214,40 +281,68 @@ app.controller('appController',function($scope, services){
 
 
 
-    $scope.login = function(email,password,remember) {
+    $scope.inicio_sesion = function( objectForm ) {
 
-        services.login( email,password,remember ).then(function(request){
-
-            if ( request.data == 'true' ){
-
-                window.location="/normal/home";
-            }
-
-
-        });
+        
+        if (objectForm.$valid){
+            objectForm.formSubmitted = false;
+            
+            services.inicio_sesion( objectForm, $scope.remember ).then(function(request){
+                console.log(request.data)
+                if( request.data == 'true' ){
+                    window.location="/normal/home";
+                }else{
+                    $scope.response = request.data;
+                }
+                
+            });
+            
+        }else{
+            
+            
+            objectForm.formSubmitted = true;
+        }
 
     };
 
-    $scope.register = function(name,email,password,password_confirmation) {
-
-        services.register( name,email,password,password_confirmation ).then(function(request){
-
+    $scope.register = function( objectForm) {
+        
+        
+        if (objectForm.$valid){
+            objectForm.formSubmitted = false;
+            
+            services.register( objectForm ).then(function(request){
+    
             if ( request.data == 'true' ){
-
-                window.location="/";
+                
+                $scope.success = true;
+                $scope.name = "";
+                $scope.email = "";
+                $scope.password = "";
+                $scope.password_confirmation = "";
+                $scope.response = false;
 
             }else if( request.data == 'false'){
+                $scope.response = true;
+                $scope.error = "Las contraseñas no coinciden";
+                //window.location="/register";
 
-                window.location="/register";
-
-            }else{
-
-                window.location="/register";
+            }else if (request.data == 'error'){
+                $scope.response = true;
+                $scope.error = "El correo ya exite, intenta con otro";
+                //window.location="/register";
             }
 
 
         });
-
+            
+        }else{
+            
+            
+            objectForm.formSubmitted = true;
+        }
+        
+        
 
     };
 

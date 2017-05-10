@@ -1,5 +1,6 @@
 <?php
 
+//RUTAS INICIALES DE LOGIN Y REGISTER
 
 Route::get('/', [
 
@@ -38,6 +39,8 @@ Route::post('/register', [
 
 Route::group(['prefix' => 'normal', 'middleware' => ['auth']], function(){
 
+    
+    
 	Route::get('/home',[
 
 		'as'   => 'normalHome',
@@ -45,6 +48,8 @@ Route::group(['prefix' => 'normal', 'middleware' => ['auth']], function(){
 
 	]);
 
+    //RUTAS DE CATEGORIAS
+    
 	Route::get('/index/category',[
 
 		'as'   => 'indexCategory',
@@ -109,14 +114,7 @@ Route::group(['prefix' => 'normal', 'middleware' => ['auth']], function(){
     ]);
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+    //RUTAS DE NOTAS
     
     Route::get('/index/note',[
         
@@ -180,6 +178,13 @@ Route::group(['prefix' => 'normal', 'middleware' => ['auth']], function(){
         
         'as'   => 'orderCategory',
 		'uses' => 'NormalController@orderNote'
+        
+    ]);
+    
+    Route::post('marcar/note',[
+        
+        'as'   => 'marcarNote',
+		'uses' => 'NormalController@marcarNote'
         
     ]);
 

@@ -14,65 +14,71 @@ use Illuminate\Support\Facades\Hash;
 class HomeController extends Controller
 {
     
+    //FUNCIÓN PARA REDIRECCIONAR AL LOGIN
+    
 	public function getLogin ( Request $request  ){
 
 		return view('auth.login');
 
 	}
-
+    
+    //FUNCIÓN PARA REDIRECCIONAR AL REGISTER 
 	public function getRegister ( Request $request ){
 
 		return view('auth.register');
 
 	}
-
+    
+    //FUNCION PARA VERIFICACION DE CUENTA Y ACCESO AL HOME
+    
 	public function postLogin( Request $request ){
 
 		//VERIFICA LAS CREDENCIALES DEL USUARIO
         if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->input('remember'))) {
 
-        	
-
-            /*Session::flash('messageSuccess', 'Bienvenido sesión: '.Auth::user()->typeUser->type);//MENSAJE DE BIENVENIDA PARA EL USUARIO*/
-
-            if(Auth::user()->typeUser->type == 'Normal'){
+            if(Auth::user()->typeUser->type == 'normal'){
 
                 return response()->json('true', 200);//REDIRECCION A LA VISTA SEGUN EL TIPO DE USUARIO
 
             }
-
-            return response()->json('true', 200);
 
 
         }else{
             
             return response()->json('false', 200);
 
-            /*Session::flash('messageError', 'Contraseña o usuario incorrecto');
-
-            return back()->withInput();//REDIRECCION ATRAS CON VALORES DE LA PETICION HTTP*/
 
         }
 	}
 
-
+    //FUNCIÓN PARA REGISTRAR USUARIOS DE TIPO NORMAL
 	public function postRegister( Request $request ){
-
+        
         try{
+              
             DB::beginTransaction(); 
 
             if ( Hash::check( $request->get('password') , bcrypt( $request->get('password_confirmation') ) )  ){
+                $user = DB::table('users')
+                            ->where('email','=',$request['email'])->get(); //VERIFICA SI EL CORREO EXISTE
+
+                if ( count($user) == 0) {
                 
-                $user = new User();
-                $user->fill($request->all());
-                $user->type_user_id = 1; //Usuario normal
+                    $user = new User();
+                    $user->fill($request->all());
+                    $user->type_user_id = 1; //Usuario normal
 
-                $user->save();
+                    $user->save();
 
-                DB::commit();
+                    DB::commit();
 
 
-                return response()->json('true', 200);
+                    return response()->json('true', 200);
+                    
+                }else{
+                    
+                    return response()->json('error', 200);
+                }
                 
             }else{
                 
@@ -92,7 +98,7 @@ class HomeController extends Controller
     }
 
 
-
+    //FUNCIÓN QUE REDIRECCIONA AL HOME
 
 	public function home( Request $request ){
 
@@ -100,6 +106,7 @@ class HomeController extends Controller
 
 	}
 
+    //FUNCIÓN QUE SACA DE LA SESIÓN AL USUARIO
 
 	public function getLogout(){
 

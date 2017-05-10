@@ -17,7 +17,30 @@ angular.module('App.Services', [])
    var path_updateNote  = "/normal/update/note";
    var path_filterNote = "/normal/filter/note";
    var path_orderNote  = "/normal/order/note";
+   var path_marcarNote  = "/normal/marcar/note";
     
+    
+    this.marcarNote = function( option, id ){
+		var defered = $q.defer();
+        var formData = new FormData();
+		formData.append("option", option);
+        formData.append("id", id);
+		return $http.post(path_marcarNote,formData,{
+					headers: {
+						"Content-type": undefined
+					},
+					transformRequest: angular.identity
+				})
+				.success(function(data) {
+					defered.resolve(data);
+				})
+				.error(function(err) {
+					defered.reject(err)
+				});
+
+		return defered.promise;
+
+	}
     
     this.orderNote = function( option ){
 		var defered = $q.defer();
@@ -260,11 +283,11 @@ angular.module('App.Services', [])
 
 	}
 
-    this.login = function(email, password,remember){
+    this.inicio_sesion = function( objectForm, remember ){
 		var defered = $q.defer();
         var formData = new FormData();
-		formData.append("email", email);
-		formData.append("password", password);
+		formData.append("email", objectForm.email.$viewValue);
+		formData.append("password", objectForm.password.$viewValue);
 		formData.append("remember", remember);
 		return $http.post(path_login,formData,{
 					headers: {
@@ -283,14 +306,14 @@ angular.module('App.Services', [])
 
 	}
 
-	this.register = function(name,email,password,password_confirmation){
+	this.register = function( objectForm ){
 		var defered = $q.defer();
         var formData = new FormData();
 		
-		formData.append("name", name);
-		formData.append("email", email);
-		formData.append("password", password);
-		formData.append("password_confirmation", password_confirmation);
+		formData.append("name", objectForm.name.$viewValue);
+		formData.append("email", objectForm.email.$viewValue);
+		formData.append("password", objectForm.password.$viewValue);
+		formData.append("password_confirmation", objectForm.password_confirmation.$viewValue);
 		return $http.post(path_register,formData,{
 					headers: {
 						"Content-type": undefined
@@ -307,6 +330,8 @@ angular.module('App.Services', [])
 		return defered.promise;
 
 	}
+    
+ 
 
 
 });

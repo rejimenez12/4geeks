@@ -2,10 +2,17 @@
 
 @section('body')
 
-<div ng-show="response" class=" col-md-12 alert alert-success">
+
+<div ng-show="success" class=" col-md-12 alert alert-success">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-    <strong>Success!</strong> Categoria modificada con exito.
+    <strong>Success!</strong> Categoria modificada con éxito.
 </div>
+
+<div ng-show="response" class=" col-md-12 alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <strong>Error!</strong> /%error%/.
+</div>
+
 
 <form ng-submit="updateCategory(categoryForm)" name="categoryForm" novalidate>
     
